@@ -86,7 +86,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 uniqueId: uniqueId ? uniqueId : null,
                 pokemon: team
             }
-            fetch('http://localhost:8080/api/registerTeam', {
+            fetch('https://pokedex-yw3p.onrender.com/api/registerTeam', {
                 method: 'POST',
                 headers: {
                     "Content-type":"application/json",

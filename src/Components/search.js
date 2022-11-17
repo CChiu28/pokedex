@@ -7,7 +7,7 @@ export default function Search(props) {
 
 	async function getData(search) {
 		try {
-			let poke = await fetch(`http://localhost:8080/api/pokemon/${search}`, {
+			let poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${search}`, {
 				method: "POST",
 				headers: {
 					"Content-type":"application/json charset=UTF-8",

@@ -11,7 +11,7 @@ export default function TeamBuilder(props) {
 
     useEffect(() => {
         (async () => {
-            const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
+            const poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemonGeneration`);
             const data = await poke.json();
             await setPokemon(data);
         })();
@@ -28,14 +28,14 @@ export default function TeamBuilder(props) {
 
     useEffect(() => {
         if (user&&pokemon) {
-            const url = `http://localhost:8080/api/getTeams/${user.uid}`;
+            const url = `https://pokedex-yw3p.onrender.com/api/getTeams/${user.uid}`;
             getTeams(url);
         } else setTeams([]);
     },[user,pokemon])
 
     function DeleteFromDatabase(index) {
         const teamDB = [];
-        const url = `http://localhost:8080/api/deleteTeam/${user.uid}/${index}`;
+        const url = `https://pokedex-yw3p.onrender.com/api/deleteTeam/${user.uid}/${index}`;
         getTeams(url);
     }
 
