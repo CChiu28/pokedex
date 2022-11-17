@@ -31,7 +31,7 @@ import RouteSwitch from './RouteSwitch';
 // ReactDOM.render(
 //   <Form {...props} error={params.get('error')} />, document.getElementById('container')
 // )
-const FIREBASE_KEY = process.env.REACT_APP_FIREBASE_WEB_APIKEY;
+const FIREBASE_KEY = process.env.GATSBY_FIREBASE_WEB_APIKEY;
 console.log(FIREBASE_KEY)
 const firebaseConfig = {
   apiKey: FIREBASE_KEY,
