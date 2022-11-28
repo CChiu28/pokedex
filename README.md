@@ -1,3 +1,17 @@
+This project is the frontend created in tandem with [pokedex-backend](https://github.com/CChiu28/pokedex-backend). Currently hosted on Netlify [here](https://cchiu28-pokedex.netlify.app/).
+
+Current features include:
+* Ability to search for a pokemon and display its information including:
+    * default and shiny sprites
+    * types
+    * abilities
+    * base stats
+    * move lists for each generation and individual game
+* Create a user and sign in via Firebase
+* Build a pokemon team and save/delete it via Mongodb with your user login
+    * Ability to modify existing pokemon teams the user has in store
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
