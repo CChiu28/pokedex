@@ -24,7 +24,7 @@ export default function TeamPokemon({ poke, deletePoke }) {
             <Col>
                 <Card className="w-auto m-2" onClick={deletePokemon}>
                     <Card.Img src={pokemon ? pokemon.sprites.front_default : require("../resources/pokemon-egg.png")} />
-                    <Card.Title>{pokemon ? formatText(pokemon.name) : ''}</Card.Title>
+                    <Card.Title className="text-center">{pokemon ? formatText(pokemon.name) : ''}</Card.Title>
                 </Card>
             </Col>
         </>

@@ -1,4 +1,5 @@
 import React from "react";
+import { formatText } from "../Utils";
 
 export default function Stats(props) {
 	const stats = props.stats;
@@ -6,13 +7,13 @@ export default function Stats(props) {
 	function getStat(stat) {
 		return(
 			<div className="d-flex justify-content-between m-1" key={stat.stat.name}>
-				<span>{stat.stat.name}:&nbsp;</span>
+				<span>{formatText(stat.stat.name)}:&nbsp;</span>
 				<span className="justify-content-end">{stat.base_stat}</span>
 			</div>
 		);
 	}
 	return(
-		<div>
+		<div className="border rounded">
 			{stats.map(stat => getStat(stat))}
 		</div>
 	)

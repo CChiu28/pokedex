@@ -6,33 +6,8 @@ import './styles/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/styles.scss';
 import RouteSwitch from './RouteSwitch';
-// import Form from './Components/Form';
 
-// const inputs = [{
-//   name: "username",
-//   placeholder: "username",
-//   type:"text"
-// },{
-//   name:"password",
-//   placeholder:"password",
-//   type:"password"
-// },{
-//   type:"submit",
-//   value:"Submit",
-//   className:"btn"
-// }]
-// const props = {
-//   name: 'loginForm',
-//   method: 'POST',
-//   action: '/perform_login',
-//   inputs: inputs
-// }
-// const params = new URLSearchParams(window.location.search)
-// ReactDOM.render(
-//   <Form {...props} error={params.get('error')} />, document.getElementById('container')
-// )
 const FIREBASE_KEY = process.env.REACT_APP_FIREBASE_WEB_APIKEY;
-console.log(FIREBASE_KEY)
 const firebaseConfig = {
   apiKey: FIREBASE_KEY,
   authDomain: "pokedex-b662f.firebaseapp.com",

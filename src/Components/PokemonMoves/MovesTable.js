@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import MovesList from "./MovesList";
 import Pokedex from "pokedex-promise-v2";
+import { formatText } from "../../Utils";
 
 export default function MovesTable(props) {
     const version = props.ver;
@@ -15,7 +16,6 @@ export default function MovesTable(props) {
         sortData(list);
         getLvlFromMoves(list);
         const stringifyList = JSON.stringify(list);
-        // console.log(stringifyList)
         fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/moves`, {
             method: "POST",
             headers: {
@@ -25,9 +25,9 @@ export default function MovesTable(props) {
             },
             body: stringifyList
         })
-        .then(res => { return res.json()})
-        .then(data => setMoves(data));
-        // getMoveInfo(list,moveInfo);
+            .then(res => { return res.json()})
+            .then(data => setMoves(data))
+            .catch(err => console.log(`bad moves fetch: ${err}`));
     },[props.moves])
 
     function getMovesForVersion(version) {
@@ -75,19 +75,11 @@ export default function MovesTable(props) {
         setLvl(lvls);
     }
 
-    function getMoveInfo(list,moveInfo) {
-        const arr = list.map(move => {
-            return moveInfo.find(ele => ele.name===move.move.name);
-        })
-        setMoves(arr);
-        console.log(list,arr);
-    }
-
     return(
-        <Table>
+        <Table bordered hover responsive>
             <thead>
                 <tr>
-                    <th>{version.name}</th>
+                    <th>{formatText(version.name)}</th>
                     <th>Move</th>
                     <th>Type</th>
                     <th>Power</th>

@@ -13,8 +13,11 @@ function LoginToDB(info) {
 }
 
 function formatText(text) {
-    const newText = text.replaceAll('-',' ');
-    return newText[0].toUpperCase()+newText.slice(1,newText.length);
+    // const newText = text.replaceAll('-',' ');
+    let textArr = text.split('-');
+    textArr = textArr.map(word => word[0].toUpperCase()+word.slice(1,word.length));
+    return textArr.join(' ');
+    // return newText[0].toUpperCase()+newText.slice(1,newText.length);
 }
 
 function getTypeStrengthAndWeakness(type) {

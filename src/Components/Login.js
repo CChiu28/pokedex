@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import StyledFirebaseAuth from "./StyledFirebaseAuth.tsx";
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import firebaseui from "firebaseui";
 import { Modal, Button, Form, FloatingLabel, Tabs, Tab } from "react-bootstrap";
 
 export default function Login(props) {
@@ -11,26 +9,10 @@ export default function Login(props) {
     });
     const auth = getAuth();
 
-    // const uiConfig = {
-    //     signInFlow: 'popup',
-    //     signInOptions: [
-    //         firebase.auth.EmailAuthProvider.PROVIDER_ID
-    //     ],
-    //     callbacks: {
-    //         signInSuccessWithAuthResult: () => false,
-    //     }
-    // }
-
     async function handleLogin(e) {
         e.preventDefault();
         // console.log(e);
         const info = await signInWithEmailAndPassword(auth,e.target[0].value,e.target[1].value);
-        // console.log(info.user.accessToken)
-        // props.getLogin({
-        //     email: e.target[0].value,
-        //     password: e.target[1].value,
-        //     jwt: info.user.accessToken
-        // });
     }
 
     function handleRegister(e) {
@@ -73,7 +55,6 @@ export default function Login(props) {
                         </Form>
                     </Tab>
                 </Tabs>
-                {/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={props.setModal}>Close</Button>

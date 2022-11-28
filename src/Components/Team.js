@@ -43,7 +43,8 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     getTeamWeakness(pokemon);
                     console.log(userId.current,teamOfPokemon.current, types.current)
                     setTeam([...teamOfPokemon.current]);
-                });
+                })
+                .catch(err => console.log(`bad pokeapi fetch: ${err}`));
         } else console.log("Full team");
     }
 
@@ -94,7 +95,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(obj)
-            });
+            }).catch(err => console.log(`bad register: ${err}`));
         } else console.log('not signed in')
     }
 
@@ -118,7 +119,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
     }
 
     return(
-        <div className="m-3">
+        <div className="border rounded p-1 m-3">
             <Row>
                 <Col className="d-flex justify-content-center">
                     <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen I"/>

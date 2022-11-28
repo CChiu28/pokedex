@@ -1,16 +1,12 @@
 import React from "react";
+import { formatText } from "../../Utils";
 
-export default function MovesList(props) {
-    const moves = props.moves;
-    const version = props.version;
-    const lvl = props.lvl
+export default function MovesList({moves, version, lvl}) {
 
     function getMoveDesc(move) {
-        const { effect_entries, flavor_text_entries } = move;
-        const desc = flavor_text_entries.find(ele =>
-            ele.version_group.name===version ? ele : effect_entries[0]
-        )
-        return desc.flavor_text;
+        const { flavor_text_entries } = move;
+        const desc = flavor_text_entries.find(ele => ele.version_group.name===version&&ele.language.name==='en');
+        return desc ? desc.flavor_text : flavor_text_entries.find(ele => ele.language.name==='en').flavor_text;
     }
 
     return(
@@ -19,8 +15,8 @@ export default function MovesList(props) {
                 return(
                     <tr key={move.name}>
                         <td>{lvl[index]}</td>
-                        <td>{move.name}</td>
-                        <td>{move.type.name}</td>
+                        <td>{formatText(move.name)}</td>
+                        <td>{formatText(move.type.name)}</td>
                         <td>{move.power===0 ? '--' : move.power}</td>
                         <td>{move.pp}</td>
                         <td>{move.accuracy===0 ? 100 : move.accuracy}</td>

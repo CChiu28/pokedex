@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { Container, Navbar, Nav, Button } from "react-bootstrap";
-// import Container from "react-bootstrap";
-import SidebarMenu from "react-bootstrap-sidebar-menu";
 import { Link } from "react-router-dom";
 import Login from "./Login";
-import StyledFirebaseAuth from './StyledFirebaseAuth.tsx'
-// import { Link } from "react-router-dom";
 
 export default function NavBar(props) {
     const auth = getAuth();
@@ -16,7 +12,7 @@ export default function NavBar(props) {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user)
-                setUser(user.uid)
+                setUser(user.email)
             else setUser('');
         })
     },[])
