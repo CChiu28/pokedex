@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, ToastContainer, Toast } from "react-bootstrap";
 import { getTypeStrengthAndWeakness } from "../Utils";
 import PokemonList from "./PokemonList";
 import TeamPokemon from "./TeamPokemon";
@@ -12,6 +12,9 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
     const teamOfPokemon = useRef([]);
     const types = useRef({});
     const [team,setTeam] = useState([]);
+    const gens = ['Gen I','Gen II','Gen III','Gen IV','Gen V','Gen VI','Gen VII','Gen VIII'];
+    const [showFullToast,setFullToast] = useState(false);
+    const [showSavedToast,setSavedToast] = useState(false);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -41,11 +44,13 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                         teamOfPokemon.current[index] = pokemon;
                     } else teamOfPokemon.current.push(pokemon);
                     getTeamWeakness(pokemon);
-                    console.log(userId.current,teamOfPokemon.current, types.current)
                     setTeam([...teamOfPokemon.current]);
                 })
-                .catch(err => console.log(`bad pokeapi fetch: ${err}`));
-        } else console.log("Full team");
+                .catch(err => console.err(`bad pokeapi fetch: ${err}`));
+        } else {
+            console.log("Full team");
+            setFullToast(!showFullToast);
+        }
     }
 
     function getTeamWeakness(poke) {
@@ -95,7 +100,9 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     'Access-Control-Allow-Origin': '*'
                 },
                 body: JSON.stringify(obj)
-            }).catch(err => console.log(`bad register: ${err}`));
+            })
+            .then(setSavedToast(!showSavedToast))
+            .catch(err => console.err(`bad register: ${err}`));
         } else console.log('not signed in')
     }
 
@@ -110,7 +117,6 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     types.current[k] ? types.current[k] -= 1 : types.current[k] = ''
             })
         })
-        console.log(index,teamOfPokemon.current)
         setTeam([...teamOfPokemon.current]);
     }
 
@@ -120,31 +126,20 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
 
     return(
         <div className="border rounded p-1 m-3">
+            <ToastContainer>
+                <Toast className="d-flex p-2 justify-content-center" bg="info" onClose={() => setFullToast(!showFullToast)} show={showFullToast} delay={1500} autohide>
+                    <p className="m-auto">This team is full!</p>
+                </Toast>
+                <Toast className="d-flex p-2 justify-content-center" bg="info" onClose={() => setSavedToast(!showSavedToast)} show={showSavedToast} delay={1500} autohide>
+                    <p className="m-auto">Team saved!</p>
+                </Toast>
+            </ToastContainer>
             <Row>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen I"/>
-                </Col>
-                <Col className="d-flex justify-content-center">    
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen II"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen III"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen IV"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen V"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VI"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VII"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VIII"/>
-                </Col>
+                {gens.map((gen,index) => 
+                    <Col className="d-flex justify-content-center" key={index}>
+                        <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen={gen} />
+                    </Col>
+                )}
             </Row>
             <Row>
                 <TeamPokemon poke={team[0] ? team[0] : null} deletePoke={deletePoke}/>
@@ -155,12 +150,14 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 <TeamPokemon poke={team[5] ? team[5] : null} deletePoke={deletePoke}/>
             </Row>
             <Types weakness={types.current}/>
-            {auth.currentUser 
-                ? <div>
-                    <Button variant="primary" onClick={saveToDatabase}>Save</Button>
-                    <Button variant="primary" onClick={deleteDB}>Delete</Button>
-                </div> 
-                : <span className="m-1">Sign in to save your teams!</span>}
+            <Row>
+                {auth.currentUser 
+                    ? <div className="m-1">
+                        <Button variant="primary" onClick={saveToDatabase}>Save</Button>
+                        <Button variant="primary" onClick={deleteDB}>Delete</Button>
+                    </div>
+                    : <span className="m-1">Sign in to save your teams!</span>}
+            </Row>
         </div>
     )
 }

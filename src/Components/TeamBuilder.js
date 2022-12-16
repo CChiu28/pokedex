@@ -16,13 +16,7 @@ export default function TeamBuilder(props) {
             await setPokemon(data);
         })();
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user);
-                console.log(true)
-            } else {
-                setUser(null);
-                console.log(false)
-            }
+            user ? setUser(user) : setUser(null);
         })
     },[])
 
@@ -34,7 +28,6 @@ export default function TeamBuilder(props) {
     },[user,pokemon])
 
     function DeleteFromDatabase(index) {
-        const teamDB = [];
         const url = `https://pokedex-yw3p.onrender.com/api/deleteTeam/${user.uid}/${index}`;
         getTeams(url);
     }
@@ -47,10 +40,8 @@ export default function TeamBuilder(props) {
     async function getTeams(url) {
         const teamDB = [];
         const res = await fetch(url);
-        // const res = await fetch(`http://localhost:8080/api/getTeams/${user.uid}`)
         const data = await res.json();
         data.pokemon.forEach((team,i) => {
-            console.log(team,i)
             teamDB.push(<Team key={Math.random()} uniqueId={data.id.timestamp} index={teams.length+i} pokemon={pokemon} pokemonDB={team} DeleteFromDatabase={DeleteFromDatabase} />);
         }
         );
@@ -59,6 +50,7 @@ export default function TeamBuilder(props) {
 
     return(
         <Container>
+            <div className="d-flex justify-content-center">The backend is currently hosted on Render. It may require a small amount of time for it to spin up and retrieve data properly.</div>
             <Button variant="primary" onClick={addNewTeam}>New Team</Button>
             {pokemon && teams}
         </Container>

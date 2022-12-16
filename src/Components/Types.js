@@ -8,9 +8,9 @@ export default function Types({ weakness }) {
 
     return(
         <>
-            <Button onClick={() => setOpen(!open)}>See weaknesses</Button>
+            <Button className="m-1" onClick={() => setOpen(!open)}>See weaknesses</Button>
             <Collapse in={open}>
-                <div>
+                <div className="p-1">
                     <Table bordered striped='columns' size='sm' responsive>
                         <thead>
                             <tr>
@@ -22,7 +22,7 @@ export default function Types({ weakness }) {
                                 {TYPES.map((type,i) => {
                                     if (weakness[type]) {
                                         return <th key={i}>{weakness[type]}</th>
-                                    } else return<th key={i}></th>
+                                    } else return<th key={i}>&nbsp;</th>
                                 })}
                             </tr>
                         </tbody>

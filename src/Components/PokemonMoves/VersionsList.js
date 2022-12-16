@@ -13,7 +13,6 @@ export default function VersionsList(props) {
 	useEffect(() => {
 		async function getData() {
 			genRef.current = await pokeDex.getGenerationByName(props.tab);
-			console.log(genRef.current)
 			const ver = getVersionsFromGeneration(genRef.current);
 			setVersion(ver);
 		}
