@@ -21,7 +21,7 @@ export default function Login(props) {
 
     return(
         <Modal show={props.show} onHide={props.setModal}>
-            <Modal.Header closeButton>Login</Modal.Header>
+            <Modal.Header closeButton>Register/Login</Modal.Header>
             <Modal.Body>
                 <Tabs defaultActiveKey='login' fill>
                     <Tab eventKey='register' title='Register'>

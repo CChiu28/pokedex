@@ -33,7 +33,7 @@ export default function NavBar(props) {
                     <Link className="m-1 align-self-center" to='/teambuilder'>Team Builder</Link>
                     <Nav.Item className="m-1">
                     {userHeader!=='' ? <Button variant="primary" onClick={logOut}>Logout</Button>
-                        : <Nav.Link onClick={() => setOpenModal(true)}>Login</Nav.Link>}
+                        : <Nav.Link onClick={() => setOpenModal(true)}>Register/Login</Nav.Link>}
                     </Nav.Item>
                 </Nav>
                 <Login show={openModal} setModal={handleClose} getLogin={props.getLogin} />
