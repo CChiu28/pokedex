@@ -29,12 +29,12 @@ export default function NavBar(props) {
                 <Navbar.Brand>Pokedex</Navbar.Brand>
                 <Navbar.Text>{userHeader}</Navbar.Text>
                 <Nav>
-                    <Link to='/'>Search</Link>
-                    <Link to='/teambuilder'>Team Builder</Link>
-                    <Nav.Item>
-                    {userHeader!=='' ? <Button variant="primary" onClick={logOut}>Logout</Button>
-                        : <Nav.Link onClick={() => setOpenModal(true)}>Login</Nav.Link>}
-                    </Nav.Item>
+                    <Link className="m-1 align-self-center" to='/'>Search</Link>
+                    <Link className="m-1 align-self-center" to='/teambuilder'>Team Builder</Link>
+                    {/* <Nav.Item className="m-1"> */}
+                    {userHeader!=='' ? <Button className="m-1" variant="primary" onClick={logOut}>Logout</Button>
+                        : <Button className="m-1" onClick={() => setOpenModal(true)}>Register/Login</Button>}
+                    {/* </Nav.Item> */}
                 </Nav>
                 <Login show={openModal} setModal={handleClose} getLogin={props.getLogin} />
             </Container>

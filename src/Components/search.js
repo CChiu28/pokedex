@@ -30,7 +30,6 @@ export default function Search(props) {
 		e.preventDefault();
 		console.log(input)
 		let response = await getData(input.toLowerCase());
-		console.log(response);
 		props.onSubmitted(response);
 	}
 
