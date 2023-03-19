@@ -31,8 +31,6 @@ function App() {
       <div className="container">
         <div className='d-flex flex-column'>
           {warning}
-          <Search onSubmitted={this.onSubmit}/>
-        <div>
           <Search onSubmitted={onSubmit}/>
         </div>
         <div>
