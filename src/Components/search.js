@@ -5,23 +5,6 @@ export default function Search(props) {
 
 	const [input,setInput] = useState('');
 
-	async function getData(search) {
-		try {
-			// let poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${search}`, {
-			let poke = await fetch(`http://localhost:8080/api/pokemon/${search}`, {
-				method: "POST",
-				headers: {
-					"Content-type":"application/json charset=UTF-8",
-					'Accept': 'application/json',
-					'Access-Control-Allow-Origin': '*'
-				}
-			});
-			return await poke.json();
-		} catch (err) {
-			console.log('bad',err);
-		}
-	}
-
 	function handleChange(e) {
 		setInput(e.target.value);
 	}
@@ -29,8 +12,7 @@ export default function Search(props) {
 	async function handleClick(e) {
 		e.preventDefault();
 		console.log(input)
-		let response = await getData(input.toLowerCase());
-		props.onSubmitted(response);
+		props.onSubmitted(input);
 	}
 
 	return (

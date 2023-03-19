@@ -15,19 +15,38 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      // const poke = await fetch(`http://pokedex.us-east-2.elasticbeanstalk.com/api/pokemonGeneration`);
-      const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
+      const poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemonGeneration`);
+      // const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
       const data = await poke.json();
       await setListOfPokemon(data);
     })();
   },[])
 
-  function onSubmit(data) {
-    setPokeData(data);
+  async function getData(search) {
+		try {
+			let poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${search}`, {
+			// let poke = await fetch(`http://localhost:8080/api/pokemon/${search}`, {
+				method: "POST",
+				headers: {
+					"Content-type":"application/json charset=UTF-8",
+					'Accept': 'application/json',
+					'Access-Control-Allow-Origin': '*'
+				}
+			});
+			return await poke.json();
+		} catch (err) {
+			console.log('bad',err);
+		}
+	}
+
+  async function onSubmit(data) {
+    const response = await getData(data.toLowerCase());
+    console.log(response)
+    setPokeData(response);
   }
 
   return (
-    <pokemonList.Provider value={listOfPokemon}>
+    // <pokemonList.Provider value={listOfPokemon}>
       <div className="container">
         <div className='d-flex flex-column'>
           {warning}
@@ -40,7 +59,7 @@ function App() {
         <div>
         </div>
       </div>
-    </pokemonList.Provider>
+    // </pokemonList.Provider>
   );
 }
 

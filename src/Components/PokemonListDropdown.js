@@ -8,30 +8,6 @@ export default function PokemonListDropdown({pokemon, getPokemon}) {
     return(
         <>
             <Row>
-                {/* <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen I"/>
-                </Col>
-                <Col className="d-flex justify-content-center">    
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen II"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen III"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen IV"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen V"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VI"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VII"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VIII"/>
-                </Col> */}
                 {gens.map((gen,index) => {
                     return(
                         <Col className="d-flex justify-content-center" key={index}>

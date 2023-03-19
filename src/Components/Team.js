@@ -1,8 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Col, Row, ToastContainer, Toast } from "react-bootstrap";
+import { Button, Row, ToastContainer, Toast } from "react-bootstrap";
 import { getTypeStrengthAndWeakness } from "../Utils";
-import PokemonList from "./PokemonList";
 import PokemonListDropdown from "./PokemonListDropdown";
 import TeamPokemon from "./TeamPokemon";
 import Types from "./Types";
@@ -13,7 +12,6 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
     const teamOfPokemon = useRef([]);
     const types = useRef({});
     const [team,setTeam] = useState([]);
-    const gens = ['Gen I','Gen II','Gen III','Gen IV','Gen V','Gen VI','Gen VII','Gen VIII'];
     const [showFullToast,setFullToast] = useState(false);
     const [showSavedToast,setSavedToast] = useState(false);
 
@@ -32,7 +30,8 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
 
     async function getPokemon(poke) {
         if (teamOfPokemon.current.length<6||teamOfPokemon.current.includes(null)) {
-            fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`)
+            fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${poke.toLowerCase()}`)
+            // fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`)
                 .then(res => res.json())
                 .then(data => {
                     const pokemon = {
@@ -93,7 +92,8 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 uniqueId: uniqueId ? uniqueId : null,
                 pokemon: team
             }
-            fetch('http://localhost:8080/api/registerTeam', {
+            fetch('https://pokedex-yw3p.onrender.com/api/registerTeam', {
+            // fetch('http://localhost:8080/api/registerTeam', {
                 method: 'POST',
                 headers: {
                     "Content-type":"application/json",
@@ -135,32 +135,6 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     <p className="m-auto">Team saved!</p>
                 </Toast>
             </ToastContainer>
-            {/* <Row>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen I"/>
-                </Col>
-                <Col className="d-flex justify-content-center">    
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen II"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen III"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen IV"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen V"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VI"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VII"/>
-                </Col>
-                <Col className="d-flex justify-content-center">
-                    <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VIII"/>
-                </Col>
-            </Row> */}
             <PokemonListDropdown pokemon={pokemon} getPokemon={getPokemon} />
             <Row>
                 <TeamPokemon poke={team[0] ? team[0] : null} deletePoke={deletePoke}/>

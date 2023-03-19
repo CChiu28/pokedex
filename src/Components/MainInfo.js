@@ -28,7 +28,7 @@ export default function MainInfo(props) {
 					</Card.Body>
 				</Card>
 			</div>
-			<MovesPane moves={moves} />
+			<MovesPane moves={moves} id={id} />
 		</>
 	);
 }

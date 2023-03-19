@@ -4,9 +4,10 @@ import { formatText } from "../../Utils";
 export default function MovesList({moves, version, lvl}) {
 
     function getMoveDesc(move) {
+        // console.log(move)
         const { flavor_text_entries } = move;
         const desc = flavor_text_entries.find(ele => ele.version_group.name===version&&ele.language.name==='en');
-        return desc ? desc.flavor_text : flavor_text_entries.find(ele => ele.language.name==='en').flavor_text;
+        return desc ? desc.flavor_text : "";
     }
 
     return(
