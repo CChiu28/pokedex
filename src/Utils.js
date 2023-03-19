@@ -1,23 +1,21 @@
-function LoginToDB(info) {
-    const obj = JSON.stringify(info);
-    console.log(obj)
-    fetch('http://localhost:8080/api/getUser', {
-        method: 'GET',
-        headers: {
-            "Content-type":"application/json",
-            'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${info.jwt}`
-        },
-    }).then(res => res.text()).then(data => console.log(data));
-}
+// function LoginToDB(info) {
+//     const obj = JSON.stringify(info);
+//     console.log(obj)
+//     fetch('http://localhost:8080/api/getUser', {
+//         method: 'GET',
+//         headers: {
+//             "Content-type":"application/json",
+//             'Accept': 'application/json',
+//             'Access-Control-Allow-Origin': '*',
+//             'Authorization': `Bearer ${info.jwt}`
+//         },
+//     }).then(res => res.text()).then(data => console.log(data));
+// }
 
 function formatText(text) {
-    // const newText = text.replaceAll('-',' ');
     let textArr = text.split('-');
     textArr = textArr.map(word => word[0].toUpperCase()+word.slice(1,word.length));
     return textArr.join(' ');
-    // return newText[0].toUpperCase()+newText.slice(1,newText.length);
 }
 
 function getTypeStrengthAndWeakness(type) {
@@ -171,7 +169,6 @@ function getTypeStrengthAndWeakness(type) {
 }
 
 export {
-    LoginToDB,
     formatText,
     getTypeStrengthAndWeakness
 }

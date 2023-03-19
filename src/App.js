@@ -1,34 +1,45 @@
 import './styles/App.css';
-import React, {Component} from "react";
+import React, {Component, createContext, useEffect, useState} from "react";
 import Search from './Components/search';
 import MainInfo from './Components/MainInfo';
+import PokemonListDropdown from './Components/PokemonListDropdown';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+function App() {
+  const [pokeData,setPokeData] = useState();
+  const [listOfPokemon,setListOfPokemon] = useState();
+  const pokemonList = createContext();
+  const list = {
+    results: [],
   }
-  state = {
-    pokeData: null
-  };
 
-  onSubmit(data) {
-    this.setState({pokeData: data});
+  useEffect(() => {
+    (async () => {
+      // const poke = await fetch(`http://pokedex.us-east-2.elasticbeanstalk.com/api/pokemonGeneration`);
+      const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
+      const data = await poke.json();
+      await setListOfPokemon(data);
+    })();
+  },[])
+
+  function onSubmit(data) {
+    setPokeData(data);
   }
-  render() {
-    return (
+
+  return (
+    <pokemonList.Provider value={listOfPokemon}>
       <div className="container">
         <div>
-          <Search onSubmitted={this.onSubmit}/>
+          <Search onSubmitted={onSubmit}/>
         </div>
         <div>
-          {this.state.pokeData && <MainInfo pokeData={this.state.pokeData} />}
+          {listOfPokemon && <PokemonListDropdown pokemon={listOfPokemon} getPokemon={onSubmit} />}
+          {pokeData && <MainInfo pokeData={pokeData} />}
         </div>
         <div>
         </div>
       </div>
-    );
-  }
+    </pokemonList.Provider>
+  );
 }
 
 export default App;

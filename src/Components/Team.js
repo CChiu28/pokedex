@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { getTypeStrengthAndWeakness } from "../Utils";
 import PokemonList from "./PokemonList";
+import PokemonListDropdown from "./PokemonListDropdown";
 import TeamPokemon from "./TeamPokemon";
 import Types from "./Types";
 
@@ -28,7 +29,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
 
     async function getPokemon(poke) {
         if (teamOfPokemon.current.length<6||teamOfPokemon.current.includes(null)) {
-            fetch(`https://pokeapi.co/api/v2/pokemon/${poke.toLowerCase()}`)
+            fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`)
                 .then(res => res.json())
                 .then(data => {
                     const pokemon = {
@@ -87,7 +88,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 uniqueId: uniqueId ? uniqueId : null,
                 pokemon: team
             }
-            fetch('https://pokedex-yw3p.onrender.com/api/registerTeam', {
+            fetch('http://localhost:8080/api/registerTeam', {
                 method: 'POST',
                 headers: {
                     "Content-type":"application/json",
@@ -120,7 +121,7 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
 
     return(
         <div className="border rounded p-1 m-3">
-            <Row>
+            {/* <Row>
                 <Col className="d-flex justify-content-center">
                     <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen I"/>
                 </Col>
@@ -145,7 +146,8 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 <Col className="d-flex justify-content-center">
                     <PokemonList pokemon={pokemon} getPokemon={getPokemon} gen="Gen VIII"/>
                 </Col>
-            </Row>
+            </Row> */}
+            <PokemonListDropdown pokemon={pokemon} getPokemon={getPokemon} />
             <Row>
                 <TeamPokemon poke={team[0] ? team[0] : null} deletePoke={deletePoke}/>
                 <TeamPokemon poke={team[1] ? team[1] : null} deletePoke={deletePoke}/>

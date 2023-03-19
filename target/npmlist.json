@@ -1,0 +1,82 @@
+{
+  "version": "0.1.0",
+  "name": "registrar",
+  "dependencies": {
+    "@testing-library/jest-dom": {
+      "version": "5.16.4",
+      "resolved": "https://registry.npmjs.org/@testing-library/jest-dom/-/jest-dom-5.16.4.tgz"
+    },
+    "@testing-library/react": {
+      "version": "13.3.0",
+      "resolved": "https://registry.npmjs.org/@testing-library/react/-/react-13.3.0.tgz"
+    },
+    "@testing-library/user-event": {
+      "version": "13.5.0",
+      "resolved": "https://registry.npmjs.org/@testing-library/user-event/-/user-event-13.5.0.tgz"
+    },
+    "bootstrap": {
+      "version": "5.2.2",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.2.2.tgz"
+    },
+    "firebase": {
+      "version": "9.12.1",
+      "resolved": "https://registry.npmjs.org/firebase/-/firebase-9.12.1.tgz"
+    },
+    "firebaseui": {
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/firebaseui/-/firebaseui-6.0.1.tgz"
+    },
+    "http-proxy-middleware": {
+      "version": "2.0.6",
+      "resolved": "https://registry.npmjs.org/http-proxy-middleware/-/http-proxy-middleware-2.0.6.tgz"
+    },
+    "pokedex-promise-v2": {
+      "version": "4.0.0",
+      "resolved": "https://registry.npmjs.org/pokedex-promise-v2/-/pokedex-promise-v2-4.0.0.tgz"
+    },
+    "react-bootstrap-sidebar-menu": {
+      "version": "2.0.3",
+      "resolved": "https://registry.npmjs.org/react-bootstrap-sidebar-menu/-/react-bootstrap-sidebar-menu-2.0.3.tgz"
+    },
+    "react-bootstrap": {
+      "version": "2.5.0",
+      "resolved": "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.5.0.tgz"
+    },
+    "react-cookie": {
+      "version": "4.1.1",
+      "resolved": "https://registry.npmjs.org/react-cookie/-/react-cookie-4.1.1.tgz"
+    },
+    "react-dom": {
+      "version": "18.2.0",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
+    },
+    "react-router-dom": {
+      "version": "6.4.1",
+      "resolved": "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.4.1.tgz"
+    },
+    "react-scripts": {
+      "version": "5.0.1",
+      "resolved": "https://registry.npmjs.org/react-scripts/-/react-scripts-5.0.1.tgz"
+    },
+    "react": {
+      "version": "18.2.0",
+      "resolved": "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
+    },
+    "reactstrap": {
+      "version": "9.1.1",
+      "resolved": "https://registry.npmjs.org/reactstrap/-/reactstrap-9.1.1.tgz"
+    },
+    "web-vitals": {
+      "version": "2.1.4",
+      "resolved": "https://registry.npmjs.org/web-vitals/-/web-vitals-2.1.4.tgz"
+    },
+    "webpack-cli": {
+      "version": "4.10.0",
+      "resolved": "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.10.0.tgz"
+    },
+    "webpack": {
+      "version": "5.73.0",
+      "resolved": "https://registry.npmjs.org/webpack/-/webpack-5.73.0.tgz"
+    }
+  }
+}

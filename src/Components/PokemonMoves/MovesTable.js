@@ -16,7 +16,7 @@ export default function MovesTable(props) {
         sortData(list);
         getLvlFromMoves(list);
         const stringifyList = JSON.stringify(list);
-        fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/moves`, {
+        fetch(`http://localhost:8080/api/pokemon/moves`, {
             method: "POST",
             headers: {
                 "Content-type":"application/json",
