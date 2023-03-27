@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Button, Container } from "react-bootstrap";
 import Team from "./Team";
+import { getFetch } from "../Utils";
 
 export default function TeamBuilder(props) {
     const [pokemon,setPokemon] = useState(null);
@@ -11,9 +12,8 @@ export default function TeamBuilder(props) {
 
     useEffect(() => {
         (async () => {
-            const poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemonGeneration`);
-            // const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
-            const data = await poke.json();
+            const url = 'https://pokedex-backend-production-b5e4.up.railway.app/api/pokemonGeneration';
+            const data = await getFetch(url);
             await setPokemon(data);
         })();
         onAuthStateChanged(auth, (user) => {
@@ -23,15 +23,13 @@ export default function TeamBuilder(props) {
 
     useEffect(() => {
         if (user&&pokemon) {
-            // const url = `http://localhost:8080/api/getTeams/${user.uid}`;
-            const url = `https://pokedex-yw3p.onrender.com/api/getTeams/${user.uid}`;
+            const url = `https://pokedex-backend-production-b5e4.up.railway.app/api/getTeams/${user.uid}`;
             getTeams(url);
         } else setTeams([]);
     },[user,pokemon])
 
     function DeleteFromDatabase(index) {
-        // const url = `http://localhost:8080/api/deleteTeam/${user.uid}/${index}`;
-        const url = `https://pokedex-yw3p.onrender.com/api/deleteTeam/${user.uid}/${index}`;
+        const url = `https://pokedex-backend-production-b5e4.up.railway.app/api/deleteTeam/${user.uid}/${index}`;
         getTeams(url);
     }
 
@@ -42,8 +40,7 @@ export default function TeamBuilder(props) {
 
     async function getTeams(url) {
         const teamDB = [];
-        const res = await fetch(url);
-        const data = await res.json();
+        const data = await getFetch(url);
         data.pokemon.forEach((team,i) => {
             teamDB.push(<Team key={Math.random()} uniqueId={data.id.timestamp} index={teams.length+i} pokemon={pokemon} pokemonDB={team} DeleteFromDatabase={DeleteFromDatabase} />);
         }

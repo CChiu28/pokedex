@@ -12,6 +12,27 @@
 //     }).then(res => res.text()).then(data => console.log(data));
 // }
 
+async function getFetch(url, method, body) {
+    let getHeaders = {
+        method: 'GET'
+    };
+    if (method==='POST') {
+        getHeaders = {
+            method: "POST",
+            headers: {
+                "Content-type":"application/json",
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: body
+        }
+    }
+    const data = await fetch(url, getHeaders);
+    const res = data.json();
+    console.log(res)
+    return res;
+}
+
 function formatText(text) {
     let textArr = text.split('-');
     textArr = textArr.map(word => word[0].toUpperCase()+word.slice(1,word.length));
@@ -170,5 +191,6 @@ function getTypeStrengthAndWeakness(type) {
 
 export {
     formatText,
-    getTypeStrengthAndWeakness
+    getTypeStrengthAndWeakness,
+    getFetch
 }

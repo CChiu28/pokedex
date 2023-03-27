@@ -3,6 +3,7 @@ import React, {Component, createContext, useEffect, useState} from "react";
 import Search from './Components/search';
 import MainInfo from './Components/MainInfo';
 import PokemonListDropdown from './Components/PokemonListDropdown';
+import { getFetch } from './Utils';
 
 function App() {
   const [pokeData,setPokeData] = useState();
@@ -15,25 +16,17 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemonGeneration`);
-      // const poke = await fetch(`http://localhost:8080/api/pokemonGeneration`);
-      const data = await poke.json();
-      await setListOfPokemon(data);
+      const url = 'https://pokedex-backend-production-b5e4.up.railway.app/api/pokemonGeneration';
+      const poke = await getFetch(url);
+      console.log(poke)
+      await setListOfPokemon(poke);
     })();
   },[])
 
   async function getData(search) {
 		try {
-			let poke = await fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${search}`, {
-			// let poke = await fetch(`http://localhost:8080/api/pokemon/${search}`, {
-				method: "POST",
-				headers: {
-					"Content-type":"application/json charset=UTF-8",
-					'Accept': 'application/json',
-					'Access-Control-Allow-Origin': '*'
-				}
-			});
-			return await poke.json();
+      const url = `https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/${search}`;
+      return await getFetch(url, 'POST');
 		} catch (err) {
 			console.log('bad',err);
 		}

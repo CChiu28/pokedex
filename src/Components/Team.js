@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Row, ToastContainer, Toast } from "react-bootstrap";
-import { getTypeStrengthAndWeakness } from "../Utils";
+import { getFetch, getTypeStrengthAndWeakness } from "../Utils";
 import PokemonListDropdown from "./PokemonListDropdown";
 import TeamPokemon from "./TeamPokemon";
 import Types from "./Types";
@@ -30,23 +30,49 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
 
     async function getPokemon(poke) {
         if (teamOfPokemon.current.length<6||teamOfPokemon.current.includes(null)) {
-            fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${poke.toLowerCase()}`)
-            // fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`)
-                .then(res => res.json())
-                .then(data => {
-                    const pokemon = {
-                        name: data.name,
-                        types: data.types,
-                        sprites: data.sprites
-                    }
-                    if (teamOfPokemon.current.includes(null)) {
-                        const index = teamOfPokemon.current.indexOf(null);
-                        teamOfPokemon.current[index] = pokemon;
-                    } else teamOfPokemon.current.push(pokemon);
-                    getTeamWeakness(pokemon);
-                    setTeam([...teamOfPokemon.current]);
-                })
-                .catch(err => console.err(`bad pokeapi fetch: ${err}`));
+            const url = `https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/${poke.toLowerCase()}`;
+            try {
+                const data = await getFetch(url,'POST')
+                // fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${poke.toLowerCase()}`)
+                // fetch(`https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/${poke.toLowerCase()}`, {
+                // // fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`, {
+                //     method: "POST",
+                //     headers: {
+                //         "Content-type":"application/json charset=UTF-8",
+                //         'Accept': 'application/json',
+                //         'Access-Control-Allow-Origin': '*'
+                //     }
+                // })
+                    // .then(res => res.json())
+                    // .then(data => {
+                        // const pokemon = {
+                        //     name: data.name,
+                        //     types: data.types,
+                        //     sprites: data.sprites
+                        // }
+                        // if (teamOfPokemon.current.includes(null)) {
+                        //     const index = teamOfPokemon.current.indexOf(null);
+                        //     teamOfPokemon.current[index] = pokemon;
+                        // } else teamOfPokemon.current.push(pokemon);
+                        // getTeamWeakness(pokemon);
+                        // setTeam([...teamOfPokemon.current]);
+                    // })
+                    // .catch(err => console.error(`bad pokeapi fetch: ${err}`));
+                console.log(data)
+                const pokemon = {
+                    name: data.name,
+                    types: data.types,
+                    sprites: data.sprites
+                }
+                if (teamOfPokemon.current.includes(null)) {
+                    const index = teamOfPokemon.current.indexOf(null);
+                    teamOfPokemon.current[index] = pokemon;
+                } else teamOfPokemon.current.push(pokemon);
+                getTeamWeakness(pokemon);
+                setTeam([...teamOfPokemon.current]);
+            } catch (error) {
+                console.error(`bad pokeapi fetch: ${error}`);
+            }
         } else {
             console.log("Full team");
             setFullToast(!showFullToast);
@@ -90,9 +116,13 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                 id: userId.current,
                 index: index,
                 uniqueId: uniqueId ? uniqueId : null,
-                pokemon: team
-            }
-            fetch('https://pokedex-yw3p.onrender.com/api/registerTeam', {
+                pokemon: team,
+            };
+            const body = JSON.stringify(obj);
+            const url = 'https://pokedex-backend-production-b5e4.up.railway.app/api/registerTeam';
+            // getFetch(url,'POST',body)
+            // fetch('https://pokedex-yw3p.onrender.com/api/registerTeam', {
+            fetch(`https://pokedex-backend-production-b5e4.up.railway.app/api/registerTeam`, {
             // fetch('http://localhost:8080/api/registerTeam', {
                 method: 'POST',
                 headers: {
@@ -100,10 +130,10 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
                     'Accept': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(obj)
+                body: body
             })
-            .then(setSavedToast(!showSavedToast))
-            .catch(err => console.err(`bad register: ${err}`));
+                .then(setSavedToast(!showSavedToast))
+                .catch(err => console.error(`bad register: ${err}`));
         } else console.log('not signed in')
     }
 

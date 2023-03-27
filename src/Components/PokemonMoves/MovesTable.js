@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import MovesList from "./MovesList";
 import Pokedex from "pokedex-promise-v2";
-import { formatText } from "../../Utils";
+import { formatText, getFetch } from "../../Utils";
 
 export default function MovesTable(props) {
     const version = props.ver;
@@ -16,17 +16,8 @@ export default function MovesTable(props) {
         sortData(list);
         getLvlFromMoves(list);
         const stringifyList = JSON.stringify(list);
-        fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/moves`, {
-        // fetch(`http://localhost:8080/api/pokemon/moves`, {
-            method: "POST",
-            headers: {
-                "Content-type":"application/json",
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body: stringifyList
-        })
-            .then(res => { return res.json()})
+        const url = 'https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/moves';
+        getFetch(url,'POST',stringifyList)
             .then(data => setMoves(data))
             .catch(err => console.log(`bad moves fetch: ${err}`));
     },[props.moves])

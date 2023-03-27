@@ -11,27 +11,6 @@ export default function MovesPane(props) {
 		console.log(props)
 		setMoveInfo(moveInfo);
 	},[props.moves])
-
-	// switch (gen) {
-	// 	case "Gen I":
-	// 		return [0,151];
-	// 	case "Gen II":
-	// 		return [151,251];
-	// 	case "Gen III":
-	// 		return [251,386];
-	// 	case "Gen IV":
-	// 		return [386,493];
-	// 	case "Gen V":
-	// 		return [493,649];
-	// 	case "Gen VI":
-	// 		return [649,721];
-	// 	case "Gen VII":
-	// 		return [721,809];
-	// 	case "Gen VIII":
-	// 		return [809,905];
-	// 	default:
-	// 		return [0,0];
-	// }
 	
 	return(
 		<div className="border rounded p-1 m-1">
