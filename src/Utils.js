@@ -29,7 +29,6 @@ async function getFetch(url, method, body) {
     }
     const data = await fetch(url, getHeaders);
     const res = data.json();
-    console.log(res)
     return res;
 }
 

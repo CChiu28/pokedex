@@ -8,7 +8,7 @@ export default function MovesPane(props) {
 	const [movesInfo,setMoveInfo] = useState(null);
 
 	useEffect(() => {
-		console.log(props)
+		// console.log(props)
 		setMoveInfo(moveInfo);
 	},[props.moves])
 	

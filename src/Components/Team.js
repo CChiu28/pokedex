@@ -33,32 +33,6 @@ export default function Team({ pokemon, pokemonDB, index, uniqueId, DeleteFromDa
             const url = `https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/${poke.toLowerCase()}`;
             try {
                 const data = await getFetch(url,'POST')
-                // fetch(`https://pokedex-yw3p.onrender.com/api/pokemon/${poke.toLowerCase()}`)
-                // fetch(`https://pokedex-backend-production-b5e4.up.railway.app/api/pokemon/${poke.toLowerCase()}`, {
-                // // fetch(`http://localhost:8080/api/pokemon/${poke.toLowerCase()}`, {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-type":"application/json charset=UTF-8",
-                //         'Accept': 'application/json',
-                //         'Access-Control-Allow-Origin': '*'
-                //     }
-                // })
-                    // .then(res => res.json())
-                    // .then(data => {
-                        // const pokemon = {
-                        //     name: data.name,
-                        //     types: data.types,
-                        //     sprites: data.sprites
-                        // }
-                        // if (teamOfPokemon.current.includes(null)) {
-                        //     const index = teamOfPokemon.current.indexOf(null);
-                        //     teamOfPokemon.current[index] = pokemon;
-                        // } else teamOfPokemon.current.push(pokemon);
-                        // getTeamWeakness(pokemon);
-                        // setTeam([...teamOfPokemon.current]);
-                    // })
-                    // .catch(err => console.error(`bad pokeapi fetch: ${err}`));
-                console.log(data)
                 const pokemon = {
                     name: data.name,
                     types: data.types,

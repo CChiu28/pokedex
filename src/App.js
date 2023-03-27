@@ -18,7 +18,6 @@ function App() {
     (async () => {
       const url = 'https://pokedex-backend-production-b5e4.up.railway.app/api/pokemonGeneration';
       const poke = await getFetch(url);
-      console.log(poke)
       await setListOfPokemon(poke);
     })();
   },[])
