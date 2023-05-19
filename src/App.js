@@ -9,7 +9,6 @@ function App() {
   const [pokeData,setPokeData] = useState();
   const [listOfPokemon,setListOfPokemon] = useState();
   const pokemonList = createContext();
-  const warning = <p className='m-auto py-1'>The backend is currently hosted on Render. It may require a small amount of time for it to spin up and retrieve data properly.</p>;
   const list = {
     results: [],
   }
@@ -41,7 +40,6 @@ function App() {
     // <pokemonList.Provider value={listOfPokemon}>
       <div className="container">
         <div className='d-flex flex-column'>
-          {warning}
           <Search onSubmitted={onSubmit}/>
         </div>
         <div>
